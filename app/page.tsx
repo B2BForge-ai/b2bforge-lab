@@ -3,7 +3,7 @@ import { getLogPosts } from "@/lib/posts";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
-  const posts = getLogPosts().slice(0, 3);
+  const posts = getLogPosts().slice(0, 5);
 
   return (
     <>
@@ -11,22 +11,24 @@ export default function HomePage() {
         Forge Lab · Case Study #1: {site.sampleName}
       </p>
       <h1>{site.tagline}</h1>
-      <p className="lead">{site.description}</p>
+      <p className="lead">
+        这里按天记录我们用 BagEvent（bagevent.io）做出海市场的真实动作——目录站、GEO、部署、表单填写与翻车。不是教程演示页。
+      </p>
       <div className="cta-row">
         <Link className="btn btn-primary" href="/log">
-          看日志
+          按天看日志
         </Link>
         <Link className="btn" href="/playbooks">
           Playbooks
         </Link>
-        <a className="btn" href={site.productUrl}>
-          了解产品站
+        <a className="btn" href={site.sampleUrl}>
+          样本产品 BagEvent
         </a>
       </div>
 
-      <h2>最新日志</h2>
+      <h2>日志（新 → 旧）</h2>
       {posts.length === 0 ? (
-        <p className="lead">内容准备中。</p>
+        <p className="lead">还没有日志。</p>
       ) : (
         <ul className="card-list">
           {posts.map((post) => (
