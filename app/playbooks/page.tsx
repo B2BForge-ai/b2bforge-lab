@@ -12,7 +12,9 @@ export default function PlaybooksPage() {
     <>
       <p className="eyebrow">Playbooks</p>
       <h1>可复用规则</h1>
-      <p className="lead">从真实动作里抽出的清单，供 MarketUP / 下一篇样本复用。</p>
+      <p className="lead">
+        从真实动作里抽出的方法与复盘，供 MarketUP / 下一篇样本复用。
+      </p>
       {posts.length === 0 ? (
         <p className="lead">首批 playbook 将随日志沉淀后发布。</p>
       ) : (

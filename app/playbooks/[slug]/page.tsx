@@ -28,6 +28,12 @@ export default async function PlaybookPage({ params }: Props) {
         className="prose"
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
+      {post.englishSummary ? (
+        <div className="en-box">
+          <strong>English Summary</strong>
+          <p>{post.englishSummary}</p>
+        </div>
+      ) : null}
       <p style={{ marginTop: "2rem" }}>
         <Link href="/playbooks">← 返回 Playbooks</Link>
       </p>

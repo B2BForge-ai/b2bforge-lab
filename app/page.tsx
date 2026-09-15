@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { getLogPosts } from "@/lib/posts";
+import { getLogPosts, getPlaybooks } from "@/lib/posts";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
   const posts = getLogPosts().slice(0, 5);
+  const playbooks = getPlaybooks().slice(0, 3);
 
   return (
     <>
@@ -25,6 +26,24 @@ export default function HomePage() {
           样本产品 BagEvent
         </a>
       </div>
+
+      {playbooks.length > 0 ? (
+        <>
+          <h2>Playbooks</h2>
+          <ul className="card-list">
+            {playbooks.map((post) => (
+              <li key={post.slug}>
+                <Link className="card" href={`/playbooks/${post.slug}`}>
+                  <h3>{post.title}</h3>
+                  <p>
+                    {post.date} · {post.summary}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
 
       <h2>日志（新 → 旧）</h2>
       {posts.length === 0 ? (
