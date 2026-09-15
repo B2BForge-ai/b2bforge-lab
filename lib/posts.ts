@@ -20,6 +20,28 @@ export type Post = PostMeta & {
   contentHtml: string;
 };
 
+/** gray-matter parses bare YAML dates as Date — String(date) becomes a GMT dump. */
+function formatDate(value: unknown): string {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+  const parsed = new Date(raw);
+  if (!Number.isNaN(parsed.getTime()) && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+    return raw.slice(0, 10);
+  }
+  if (!Number.isNaN(parsed.getTime()) && /GMT|UTC|Coordinated/i.test(raw)) {
+    return parsed.toISOString().slice(0, 10);
+  }
+  return raw;
+}
+
+/** Page templates already render frontmatter title as <h1>; drop a leading AT1 from the body. */
+function stripLeadingH1(markdown: string): string {
+  return markdown.replace(/^\s*#\s+[^\n]+\n+/, "");
+}
+
 function readDir(dir: string): PostMeta[] {
   const full = path.join(contentRoot, dir);
   if (!fs.existsSync(full)) return [];
@@ -33,7 +55,7 @@ function readDir(dir: string): PostMeta[] {
       return {
         slug,
         title: String(data.title ?? slug),
-        date: String(data.date ?? ""),
+        date: formatDate(data.date),
         type: (data.type ?? "log") as PostMeta["type"],
         sample: String(data.sample ?? "BagEvent"),
         summary: String(data.summary ?? ""),
@@ -65,11 +87,11 @@ export async function getPost(
   if (!fs.existsSync(file)) return null;
   const raw = fs.readFileSync(file, "utf8");
   const { data, content } = matter(raw);
-  const processed = await remark().use(html).process(content);
+  const processed = await remark().use(html).process(stripLeadingH1(content));
   return {
     slug,
     title: String(data.title ?? slug),
-    date: String(data.date ?? ""),
+    date: formatDate(data.date),
     type: (data.type ?? "log") as PostMeta["type"],
     sample: String(data.sample ?? "BagEvent"),
     summary: String(data.summary ?? ""),

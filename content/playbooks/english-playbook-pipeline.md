@@ -1,13 +1,11 @@
 ---
 title: "零客户，先写 49 页：一本英文白皮书的生产线复盘"
-date: 2026-09-15
+date: "2026-09-15"
 type: playbook
 sample: BagEvent
 summary: "零客户阶段先做信任资产而非 lead magnet；把设计规范写成提示词契约；四条真实抓错；网页全开放、PDF 直链。"
 englishSummary: "With zero international customers, we shipped a 49-page English operations playbook first. This write-up covers the constraint system in the prompt contract, four real catch-and-fix cases, and why the web edition is fully open (PDF direct download)."
 ---
-
-# 零客户，先写 49 页：一本英文白皮书的生产线复盘
 
 九月中旬，[bagevent.io](https://bagevent.io) 还没有第一个国际客户。我们产出的第一份营销资产，不是投放素材，也不是落地页，而是一本 49 页的英文运营白皮书——《Running an event, end to end》，六个阶段、34 个 topic，从活动立项的五个不可逆决策，一直写到欧盟 AI 法案下的披露义务。
 
